@@ -174,6 +174,8 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
+    //// LOGINUSER THAT IS LOG IN //////////////
+
     const pendingRequest = async () => {
         const id = localStorage.getItem("user_id");
         if (!id) return;
@@ -189,6 +191,8 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             console.log("pendingRequest error", err);
         }
     };
+
+    //// RECIEVER THAT IS LOG IN  /////// 
 
     const acceptFriendRequest = async () => {
         const id = localStorage.getItem("user_id");
