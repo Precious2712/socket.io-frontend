@@ -7,53 +7,11 @@ import { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { useAppContext } from "@/useContext/context";
 
-import {
-    IFriendRequest
-} from "@/data/header-nav/friend-request";
-
 export function DashBoardComp() {
-    const { request, pending } = useAppContext();
+    const { request, pending, friends, recieverFriend, online, offline, unConfirm, friendList, reject, away, active, acceptReq } = useAppContext();
 
     const [cards, setCards] = useState<DashboardCard[]>(dashboardData);
-
     const [name, setName] = useState<string | null>(null);
-
-    const [acceptedReq, setAcceptedReq] = useState<IFriendRequest[]>([]);
-    const [online, setOnline] = useState<IFriendRequest[]>([]);
-    const [offline, setOffline] = useState<IFriendRequest[]>([]);
-
-    useEffect(() => {
-        if (!request?.result) return;
-
-        const filterPendingReq = request.result.filter(
-            (el: IFriendRequest) => el.response === true
-        );
-
-        setAcceptedReq(filterPendingReq);
-        console.log("Pending Requests:", filterPendingReq);
-    }, [request]);
-
-    useEffect(() => {
-        if (!request?.result) return;
-
-        const offlineUsers = request.result.filter(
-            (el: IFriendRequest) => el.recieverStatus === false
-        );
-
-        setOffline(offlineUsers);
-        console.log("Offline-user:", offlineUsers);
-    }, [request]);
-
-    useEffect(() => {
-        if (!request?.result) return;
-
-        const onlineUsers = request.result.filter(
-            (el: IFriendRequest) => el.recieverStatus === true
-        );
-
-        setOnline(onlineUsers);
-        console.log("Online-user:", online);
-    }, [request]);
 
     useEffect(() => {
         const timeout = setTimeout(() => setCards(shuffle([...cards])), 3000);
@@ -131,21 +89,21 @@ export function DashBoardComp() {
 
                                         <div className="space-y-2">
                                             <motion.p
-                                                className="text-3xl font-black text-white drop-shadow-2xl"
+                                                className="text-[20px] font-black text-white drop-shadow-2xl"
                                                 whileHover={{ scale: 1.1 }}
                                             >
                                                 {card.title === "Pending Requests"
-                                                    ? `${request?.result.length} Request`
-                                                    : card.title === "Accept Friend Request"
-                                                        ? `${pending?.result.length || 0} Request`
+                                                    ? `${unConfirm.length || reject?.length}`
+                                                    : card.title === "Accept Friend Request"//////
+                                                        ? `${pending?.result.length || request?.result.length} Requests`
                                                         : card.title === "Total Friends"
-                                                            ? `${acceptedReq.length || 0} Friend`
+                                                            ? `${friends?.length || recieverFriend?.length}`
                                                             : card.title === 'Offline Friends'
-                                                                ? `${offline.length || 0} Users`
+                                                                ? `${offline?.length || away?.length}`
                                                                 : card.title === 'Online Friends'
-                                                                    ? `${online.length || 0} Users`
-                                                                    : card.title === 'Friends'
-                                                                        ? `${acceptedReq.length || 0} Accepted`
+                                                                    ? `${online?.length || active?.length}`
+                                                                    : card.title === 'N0 of Accepted Request'
+                                                                        ? `${friends?.length || friendList?.length}`
                                                                         : card.value}
                                             </motion.p>
 

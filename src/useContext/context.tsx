@@ -13,6 +13,10 @@ import axios, { isAxiosError } from "axios";
 
 import { searchedUser } from "@/data/header-nav/search-user";
 import { FriendRequestsResponse, RequestsResponse, RequestAcceptedResponse, User } from "@/data/i-user.ts/users";
+import {
+    IFriendRequest
+} from "@/data/header-nav/friend-request";
+import { RequestData } from "next/dist/server/web/types";
 
 type AppContextType = {
     handleSelectItem: (text: string) => void;
@@ -27,13 +31,25 @@ type AppContextType = {
     sendFriendRequest: (id: User) => void;
     isLoading: boolean;
 
-    request: FriendRequestsResponse | null;   // outgoing / pending
-    pending: RequestsResponse | null;         // incoming requests
-    acceptedRef: RequestAcceptedResponse | null; // accepted friends
+    request: FriendRequestsResponse | null;
+    pending: RequestsResponse | null;
+    acceptedRef: RequestAcceptedResponse | null;
 
-    handleUpdate: () => void;
+    handleUpdate: (id: string) => void;
     handleDeleteRequest: () => void;
     show: boolean;
+
+    friends: IFriendRequest[];
+    acceptReq: RequestData | null;
+    online: IFriendRequest[];
+    offline: IFriendRequest[];
+    unConfirm: IFriendRequest[];
+
+    recieverFriend: IFriendRequest[];
+    friendList: IFriendRequest[];
+    reject: IFriendRequest[];
+    away: IFriendRequest[];
+    active: IFriendRequest[];
 };
 
 const AppContext = createContext<AppContextType | undefined>(undefined);
@@ -50,11 +66,22 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
     const [pending, setPending] = useState<RequestsResponse | null>(null);
     const [acceptedRef, setAcceptedRef] = useState<RequestAcceptedResponse | null>(null);
 
+    const [friends, setFriends] = useState<IFriendRequest[]>([]);
+    const [acceptReq, setAcceptReq] = useState<RequestData | null>(null);
+    const [online, setOnline] = useState<IFriendRequest[]>([]);
+    const [offline, setOffline] = useState<IFriendRequest[]>([]);
+    const [unConfirm, setUnconfirm] = useState<IFriendRequest[]>([]);
+
+    ///RECIEVER///
+    const [recieverFriend, setRecieverFriend] = useState<IFriendRequest[]>([]);
+    const [reject, setReject] = useState<IFriendRequest[]>([]);
+    const [friendList, setFriendList] = useState<IFriendRequest[]>([]);
+    const [away, setAway] = useState<IFriendRequest[]>([]);
+    const [active, setActive] = useState<IFriendRequest[]>([]);
+
+
     const navigate = useRouter();
 
-    // ----------------------------------------------------
-    // MENU ROUTER
-    // ----------------------------------------------------
     const handleSelectItem = async (text: string) => {
         const id = localStorage.getItem("user_id");
         setItem(text);
@@ -79,9 +106,6 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    // ----------------------------------------------------
-    // SEARCH USERS
-    // ----------------------------------------------------
     useEffect(() => {
         if (!searchTerm.trim()) {
             setSearchResults([]);
@@ -116,9 +140,6 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         return () => clearTimeout(delay);
     }, [searchTerm]);
 
-    // ----------------------------------------------------
-    // SEND FRIEND REQUEST
-    // ----------------------------------------------------
     const sendFriendRequest = async (id: User) => {
         const isLoginUser = localStorage.getItem("user_id");
         if (!isLoginUser) {
@@ -138,7 +159,9 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             setIsLoading(true);
-            await axios.post("http://localhost:5000/request/create", payload);
+            const res = await axios.post("http://localhost:5000/request/create", payload);
+            setAcceptReq(res.data);
+            console.log(res.data, 'sender-request-view');
 
             pendingRequest();
             acceptFriendRequest();
@@ -151,9 +174,6 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    // ----------------------------------------------------
-    // OUTGOING REQUESTS (I sent)
-    // ----------------------------------------------------
     const pendingRequest = async () => {
         const id = localStorage.getItem("user_id");
         if (!id) return;
@@ -162,15 +182,14 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             const res = await axios.get<FriendRequestsResponse>(
                 `http://localhost:5000/request/search?loginUserId=${id}`
             );
+            console.log('datta', res.data);
+
             setRequest(res.data);
         } catch (err) {
             console.log("pendingRequest error", err);
         }
     };
 
-    // ----------------------------------------------------
-    // INCOMING REQUESTS (people who added me)
-    // ----------------------------------------------------
     const acceptFriendRequest = async () => {
         const id = localStorage.getItem("user_id");
         if (!id) return;
@@ -185,20 +204,16 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    // ----------------------------------------------------
-    // ACCEPT FRIEND REQUEST
-    // ----------------------------------------------------
-    const handleUpdate = async () => {
-        const firstId = pending?.result?.[0]?._id;
-
-        if (!firstId) {
+    const handleUpdate = async (id: string) => {
+        if (id) {
+            alert(`User - ${id}`);
+        } else {
             alert("No pending request to accept.");
-            return;
         }
 
         try {
             await axios.put(
-                `http://localhost:5000/request/${firstId}/response`,
+                `http://localhost:5000/request/${id}/response`,
                 { response: true }
             );
 
@@ -214,9 +229,6 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleDeleteRequest = () => { };
 
-    // ----------------------------------------------------
-    // TOTAL FRIENDS
-    // ----------------------------------------------------
     const totalFriends = async () => {
         const id = localStorage.getItem("user_id");
         if (!id) return;
@@ -237,6 +249,108 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         totalFriends();
     }, []);
 
+
+    ////LogInUser////////////////////////////////////////////////////////
+    useEffect(() => {
+        if (!request?.result) return;
+        const homies = request?.result.filter(
+            (el: IFriendRequest) => el.response === true
+        )
+        setFriends(homies)
+        console.log('homies-req', homies);
+    }, [request])
+
+    useEffect(() => {
+        if (!request?.result) return;
+
+        const notConfirm = request.result.filter(
+            (el: IFriendRequest) => el.response === false
+        );
+
+        setUnconfirm(notConfirm);
+        console.log("Pending-request:", notConfirm);
+    }, [request]);
+
+
+    useEffect(() => {
+        if (!request?.result) return;
+
+        const offlineUsers = request.result.filter(
+            (el: IFriendRequest) => el.recieverStatus === false
+        );
+
+        setOffline(offlineUsers);
+        console.log("Offline-user:", offlineUsers);
+    }, [request]);
+
+    useEffect(() => {
+        if (!request?.result) return;
+
+        const onlineUsers = request.result.filter(
+            (el: IFriendRequest) => el.recieverStatus === true
+        );
+
+        setOnline(onlineUsers);
+        console.log("Online-user:", online);
+    }, [request]);
+
+    //reciever////////////////////////////////////////
+
+    useEffect(() => {
+        if (!pending?.result) return;
+
+        const recieverReq = pending.result.filter(
+            (el: IFriendRequest) => el.response === true
+        );
+
+        setRecieverFriend(recieverReq);
+        console.log("Accepted Requests:", recieverReq);
+    }, [pending]);
+
+    useEffect(() => {
+        if (!pending?.result) return;
+        const list = pending?.result.filter(
+            (el: IFriendRequest) => el.response === true
+        )
+        setFriendList(list)
+        console.log('req', list);
+    }, [pending])
+
+    useEffect(() => {
+        if (!pending?.result) return;
+
+        const unfriend = pending.result.filter(
+            (el: IFriendRequest) => el.response === false
+        );
+
+        setReject(unfriend);
+        console.log("Pending-request:", unfriend);
+    }, [pending]);
+
+    useEffect(() => {
+        if (!pending?.result) return;
+
+        const awayUsers = pending.result.filter(
+            (el: IFriendRequest) => el.loginStatus === false
+        );
+
+        setAway(awayUsers);
+        console.log("Offline-user:", awayUsers);
+    }, [pending]);
+
+    useEffect(() => {
+        if (!pending?.result) return;
+
+        const available = pending.result.filter(
+            (el: IFriendRequest) => el.loginStatus === true
+        );
+
+        setActive(available);
+        console.log("Online-user:", online);
+    }, [pending]);
+
+
+
     return (
         <AppContext.Provider
             value={{
@@ -247,17 +361,27 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                 setSearchTerm,
                 loading,
                 setLoading,
+                reject,
+                friendList,
 
                 sendFriendRequest,
                 isLoading,
                 show,
-                
+                active,
+
                 request,
                 pending,
                 acceptedRef,
+                friends,
+                acceptReq,
+                online,
+                offline,
+                unConfirm,
+                away,
 
                 handleUpdate,
-                handleDeleteRequest
+                handleDeleteRequest,
+                recieverFriend
             }}
         >
             {children}

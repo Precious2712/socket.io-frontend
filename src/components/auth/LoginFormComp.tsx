@@ -5,7 +5,7 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { type loginForm, loginFormSchema } from "./FormSchema";
 import { Button } from "../ui/button";
 import { useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { portal } from "@/data/auths/auths";
 import { ShacdnLogin } from "./ShacdnLogin";

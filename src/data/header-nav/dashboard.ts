@@ -65,7 +65,7 @@ export const dashboardData: DashboardCard[] = [
     },
     {
         id: 6,
-        title: "Friends",
+        title: "N0 of Accepted Request",
         value: "15 Active",
         description: "Friends currently available to chat",
         color: "linear-gradient(135deg, #DDA0DD 0%, #E8B5E8 100%)",
