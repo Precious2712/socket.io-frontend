@@ -2,7 +2,6 @@
 
 import { motion, Variants } from "framer-motion";
 
-// ✅ Letter animation variant
 const letterVariant: Variants = {
     animate: (i: number) => ({
         color: ["#0f5132", "#1e3a8a", "#dc2626", "#0f5132"],
@@ -14,7 +13,6 @@ const letterVariant: Variants = {
     }),
 };
 
-// ✅ Reusable component
 interface AnimatedTextProps {
     text: string;
     className?: string;
@@ -29,7 +27,7 @@ export const ShortText = ({ text, className }: AnimatedTextProps) => {
                     custom={i}
                     variants={letterVariant}
                     animate="animate"
-                    style={{ display: "inline-block" }}
+                    style={{ display: "inline-block", marginRight: "3px"  }}
                 >
                     {char}
                 </motion.span>

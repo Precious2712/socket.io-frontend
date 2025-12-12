@@ -70,7 +70,7 @@ export function SignupFormComps() {
                     </Button>
 
                     <Link href='/login'>
-                        <div className="flex justify-center gap-1.5 pb-8">
+                        <div className="flex flex-wrap lg:flex justify-center gap-1.5 pb-8">
                             <span className="underline underline-offset-1 text-center">
                                 <strong>Already have an account!</strong>
                             </span>

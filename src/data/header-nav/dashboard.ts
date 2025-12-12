@@ -14,8 +14,18 @@ export interface DashboardCard {
 
 export const dashboardData: DashboardCard[] = [
     {
+        id: 0,
+        title: "Accept Requests",
+        value: "5 New",
+        description: "Friend requests waiting for your approval",
+        color: "linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)",
+        icon: React.createElement(Clock, { size: 28, color: "white" }),
+        path: "/requests/pending",
+        image: "https://images.unsplash.com/photo-1551836026-d5c8c2d7b5f5?w=400&h=300&fit=crop"
+    },
+    {
         id: 1,
-        title: "Pending Requests",
+        title: "Reject Requests",
         value: "5 New",
         description: "Friend requests waiting for your approval",
         color: "linear-gradient(135deg, #FF6B6B 0%, #FF8E8E 100%)",
@@ -35,7 +45,7 @@ export const dashboardData: DashboardCard[] = [
     },
     {
         id: 3,
-        title: "Total Friends",
+        title: "Friends",
         value: "47 People",
         description: "Active friends in your network",
         color: "linear-gradient(135deg, #45B7D1 0%, #67D1EB 100%)",
@@ -55,7 +65,7 @@ export const dashboardData: DashboardCard[] = [
     },
     {
         id: 5,
-        title: "Accept Friend Request",
+        title: "Unread Messages",
         value: "8 Unread",
         description: "Messages requiring your attention",
         color: "linear-gradient(135deg, #FFEAA7 0%, #FFF4D1 100%)",

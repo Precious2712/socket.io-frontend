@@ -3,9 +3,10 @@
 import { useAppContext } from '@/useContext/context';
 import { motion, Variants } from 'framer-motion';
 import { FriendRequestList } from '../DashBoardComp/FriendRequestList';
+import { RejectFriendRequest } from '../DashBoardComp/RejectFriendRequest';
 
-export function AcceptFriendRequest() {
-    const { handleUpdate, request } = useAppContext();
+export function RejectRequest() {
+    const { handleReject, request } = useAppContext();
 
     const getInitials = (firstName: string, lastName: string) =>
         `${firstName?.charAt(0) || ''}${lastName?.charAt(0) || ''}`.toUpperCase();
@@ -18,6 +19,7 @@ export function AcceptFriendRequest() {
         }
     };
 
+    // ✅ Properly typed variants
     const containerVariants: Variants = {
         hidden: { opacity: 0 },
         visible: {
@@ -32,7 +34,7 @@ export function AcceptFriendRequest() {
             opacity: 1,
             y: 0,
             transition: {
-                type: "spring",
+                type: "spring",   // MUST be a valid type
                 stiffness: 300,
                 damping: 24
             }
@@ -45,9 +47,9 @@ export function AcceptFriendRequest() {
         <div className="pt-6 px-4 sm:px-6 lg:px-8 w-full lg:pt-24">
 
             {pendingData.length > 0 && (
-                <FriendRequestList
+                <RejectFriendRequest
                     data={pendingData}
-                    handleUpdate={handleUpdate}
+                    handleReject={handleReject}
                     getInitials={getInitials}
                     getAvatarColor={getAvatarColor}
                     containerVariants={containerVariants}
@@ -58,7 +60,7 @@ export function AcceptFriendRequest() {
             {/* {pendingData.length === 0 && requestData.length > 0 && (
                 <FriendRequestList
                     data={requestData}
-                    handleUpdate={handleUpdate}
+                    handleUpdate={handleReject}
                     getInitials={getInitials}
                     getAvatarColor={getAvatarColor}
                     containerVariants={containerVariants}
@@ -101,7 +103,6 @@ export function AcceptFriendRequest() {
                     </p>
                 </motion.div>
             )}
-
 
 
         </div>

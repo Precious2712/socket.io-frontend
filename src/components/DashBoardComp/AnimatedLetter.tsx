@@ -20,7 +20,7 @@ interface AnimatedTextProps {
 
 export const AnimatedLetter = ({ text, className }: AnimatedTextProps) => {
     return (
-        <h1 className={className} style={{ display: "inline-block" }}>
+        <h1 className={className} style={{ display: "inline-block", marginRight: "7px" }}>
             {text.split("").map((char, i) => (
                 <motion.span
                     key={i}
@@ -29,7 +29,8 @@ export const AnimatedLetter = ({ text, className }: AnimatedTextProps) => {
                     animate="animate"
                     style={{ display: "inline-block" }}
                 >
-                    {char}
+                    {/* {char} */}
+                    {char === " " ? "\u00A0" : char}
                 </motion.span>
             ))}
         </h1>

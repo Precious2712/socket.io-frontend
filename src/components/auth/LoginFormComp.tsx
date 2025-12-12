@@ -47,8 +47,8 @@ export function LoginFormComp() {
             axios.put(`http://localhost:5000/auth/${id}`, { login: true })
            .catch(() => console.warn("loginStatus update failed"));
 
-           axios.put(`http://localhost:5000/request/user/${id}/login`, {login: true})
-           .catch(() => console.warn("loginStatus update failed"));
+        //    axios.put(`http://localhost:5000/request/user/${id}/login`, {login: true})
+        //    .catch(() => console.warn("loginStatus update failed"));
 
             useNavigate.push('/home');
 

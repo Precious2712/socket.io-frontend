@@ -13,6 +13,8 @@ import { DashBoardComp } from "@/components/DashBoardComp/DashBoard";
 import { Input } from "@/components/ui/input";
 import { UserAvatar } from "@/components/DashBoardComp/UserAvatar";
 import { AcceptFriendRequest } from "@/components/home-pages/AcceptFriendRequest";
+import { RejectRequest } from "@/components/home-pages/RejectRequest";
+import { FriendsBucketList } from "@/components/home-pages/FriendsBucketList";
 
 
 export default function HomepageComp() {
@@ -38,7 +40,7 @@ export default function HomepageComp() {
     }, []);
 
     return (
-        <div className="relative min-h-screen no-scroll">
+        <div className="relative min-h-screen bg-linear-to-br from-sky-50 to-blue-100 no-scroll">
             {/* Mobile Header & Menu */}
             <div className="bg-blue-800 lg:hidden">
                 <div className="fixed top-0 w-full flex items-center justify-between h-16 px-4 bg-sky-900 z-50">
@@ -80,7 +82,7 @@ export default function HomepageComp() {
 
                                                 <Button
                                                     className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
-                                                    onClick={() => sendFriendRequest(user)}
+                                                    onClick={() => sendFriendRequest(user._id)}
                                                 >
                                                     {/* {isLoading ? "Loading" : "Click"} */}
                                                     Send
@@ -104,7 +106,6 @@ export default function HomepageComp() {
                     </div>
                 </div>
 
-                {/* Main Content Area */}
                 <div className="pt-16 min-h-screen bg-white">
                     <AnimatePresence>
                         {isMobileMenuOpen && (
@@ -154,14 +155,14 @@ export default function HomepageComp() {
                     <div className="h-[calc(100vh-4rem)] overflow-y-auto scroll-smooth no-scroll">
                         <div className="min-h-full">
                             {item === 'Dashboard' && <DashBoardComp />}
-                            {item === 'Accept Friend Request' && <AcceptFriendRequest />}
+                            {item === 'Accept Requests' && <AcceptFriendRequest />}
                         </div>
                     </div>
                 </div>
             </div>
 
             {/* Desktop Layout */}
-            <div className="hidden lg:flex  min-h-screen pb-4 bg-linear-to-br from-sky-50 to-blue-100">
+            <div className="hidden lg:flex  min-h-screen ">
                 <div className="flex flex-col h-screen w-[230px] bg-sky-900 border-r border-sky-700 fixed top-0 z-0">
                     <nav className="mt-16 overflow-y-auto overflow-x-hidden w-[230px] no-scroll">
                         <div className="flex items-center gap-3 py-2 px-3 border-b border-sky-700 bg-sky-900 shrink-0">
@@ -217,7 +218,6 @@ export default function HomepageComp() {
                                         setSearchTerm(e.target.value);
                                         setLoading(true);
 
-                                        // Simulate search delay (remove in real logic)
                                         setTimeout(() => setLoading(false), 1000);
                                     }}
                                     className="pl-10 pr-10"
@@ -255,9 +255,8 @@ export default function HomepageComp() {
                                                 </div>
                                                 <Button
                                                     className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
-                                                    onClick={() => sendFriendRequest(user)}
+                                                    onClick={() => sendFriendRequest(user._id)}
                                                 >
-                                                    {/* {isLoading ? 'Loading' : 'Click'} */}
                                                     Send
                                                 </Button>
                                             </div>
@@ -269,7 +268,9 @@ export default function HomepageComp() {
                         </div>
                     </nav>
                     {item === 'Dashboard' && <DashBoardComp />}
-                    {item === 'Accept Friend Request' && <AcceptFriendRequest />}
+                    {item === 'Accept Requests' && <AcceptFriendRequest />}
+                    {item === 'Reject Requests' && <RejectRequest />}
+                    {item === 'Friends' && <FriendsBucketList />}
                 </div>
             </div>
         </div>

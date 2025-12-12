@@ -8,7 +8,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useAppContext } from "@/useContext/context";
 
 export function DashBoardComp() {
-    const { request, pending, friends, recieverFriend, online, offline, unConfirm, friendList, reject, away, active, acceptReq } = useAppContext();
+    const { request, friendsData, count, status, absent } = useAppContext();
 
     const [cards, setCards] = useState<DashboardCard[]>(dashboardData);
     const [name, setName] = useState<string | null>(null);
@@ -24,7 +24,7 @@ export function DashBoardComp() {
     }, []);
 
     return (
-        <div className="pt-6 p-3 bg-linear-to-br from-sky-50 to-blue-100 lg:pt-20">
+        <div className="pt-6 p-3  lg:pt-20 pb-20">
             <div className="max-w-7xl mx-auto">
                 <motion.div
                     className="text-center mb-8"
@@ -92,18 +92,18 @@ export function DashBoardComp() {
                                                 className="text-[20px] font-black text-white drop-shadow-2xl"
                                                 whileHover={{ scale: 1.1 }}
                                             >
-                                                {card.title === "Pending Requests"
-                                                    ? `${unConfirm.length || reject?.length}`
-                                                    : card.title === "Accept Friend Request"//////
-                                                        ? `${pending?.result.length || request?.result.length} Requests`
-                                                        : card.title === "Total Friends"
-                                                            ? `${friends?.length || recieverFriend?.length}`
+                                                {card.title === "Accept Requests"
+                                                    ? `${request.length || 0}`
+                                                    : card.title === "Reject Requests"
+                                                        ? `${request.length || 0}`
+                                                        : card.title === "Friends"
+                                                            ? `${friendsData?.friends.length || friendsData?.friends.length}`
                                                             : card.title === 'Offline Friends'
-                                                                ? `${offline?.length || away?.length}`
+                                                                ? `${absent?.offlineOrOnline.length || 0}`
                                                                 : card.title === 'Online Friends'
-                                                                    ? `${online?.length || active?.length}`
+                                                                    ? `${status?.offlineOrOnline.length || 0}`
                                                                     : card.title === 'N0 of Accepted Request'
-                                                                        ? `${friends?.length || friendList?.length}`
+                                                                        ? `${count?.acceptedCount}`
                                                                         : card.value}
                                             </motion.p>
 

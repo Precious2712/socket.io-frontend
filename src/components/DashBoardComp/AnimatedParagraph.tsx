@@ -21,7 +21,7 @@ interface AnimatedTextProps {
 
 export const AnimatedParagraph = ({ text, className }: AnimatedTextProps) => {
     return (
-        <p className={className} style={{ display: "inline-block" }}>
+        <p className={className} style={{ display: "inline-block", marginRight: "3px" }}>
             {text.split("").map((char, i) => (
                 <motion.span
                     key={i}

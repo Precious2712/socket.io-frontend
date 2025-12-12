@@ -44,12 +44,12 @@ export default function LoginPage() {
             <motion.div variants={containerVariants} initial="hidden" animate="visible" className="text-center mb-8 flex flex-col">
                 <AnimatedLetter
                     text={`Welcome back.`}
-                    className="text-3xl font-bold text-center sm:text-4xl text-sky-950"
+                    className=" font-bold text-center  text-sky-950 lg:text-4xl"
                 />
 
                 <AnimatedParagraph
                     text="Log in to start conversation."
-                    className="text-[25px] mt-2 text-cyan-400 font-semibold"
+                    className=" mt-2 text-cyan-400 font-semibold lg:text-3xl"
                 />
             </motion.div>
 
@@ -60,7 +60,7 @@ export default function LoginPage() {
                     duration: 0.8,
                     ease: "easeOut",
                 }}
-                className="mt-2 overflow-hidden w-[90%] lg:w-[30%] shadow-md p-6 rounded-2xl"
+                className="mt-2 overflow-hidden w-[90%] lg:w-[430px] shadow-md p-6 rounded-2xl "
             >
                 <LoginFormComp />
             </motion.div>
