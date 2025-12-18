@@ -42,58 +42,12 @@ export default function HomepageComp() {
     return (
         <div className="relative min-h-screen bg-linear-to-br from-sky-50 to-blue-100 no-scroll">
             {/* Mobile Header & Menu */}
-            <div className="bg-blue-800 lg:hidden">
+            <div className="bg-white lg:hidden">
                 <div className="fixed top-0 w-full flex items-center justify-between h-16 px-4 bg-sky-900 z-50">
                     <div className="flex items-center gap-2">
                         <MessageCircle className="w-6 h-6 text-white" />
                     </div>
-                    <div className="flex gap-1.5">
-                        <div className="relative w-72 border rounded-2xl">
-                            <input
-                                type="text"
-                                placeholder="Search..."
-                                className="w-full px-3 py-2 rounded-lg text-sm outline-none"
-                                value={searchTerm}
-                                onChange={(e) => setSearchTerm(e.target.value)}
-                            />
-
-                            {/* Search Results */}
-                            {searchTerm && (
-                                <div className="absolute top-12 bg-white shadow-lg rounded-lg w-full max-h-[250px] overflow-y-auto z-50">
-                                    {searchResults.length === 0 ? (
-                                        <p className="p-3 text-gray-500">No results found</p>
-                                    ) : (
-                                        searchResults.map((user) => (
-                                            <div
-                                                key={user._id}
-                                                className="flex items-center justify-between p-3  hover:bg-gray-100 cursor-pointer"
-                                            >
-                                                <div className="flex items-center gap-3 text-xs">
-                                                    <UserAvatar
-                                                        gender={user.gender}
-                                                        firstName={user.firstName}
-                                                        lastName={user.lastName}
-                                                    />
-
-                                                    <p className="font-semibold text-gray-800">
-                                                        {user.firstName} {user.lastName}
-                                                    </p>
-                                                </div>
-
-                                                <Button
-                                                    className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
-                                                    onClick={() => sendFriendRequest(user._id)}
-                                                >
-                                                    {/* {isLoading ? "Loading" : "Click"} */}
-                                                    Send
-                                                </Button>
-                                            </div>
-                                        ))
-                                    )}
-                                </div>
-                            )}
-                        </div>
-
+                    <div className="">
                         <Button
                             variant="ghost"
                             size="icon"
@@ -106,7 +60,7 @@ export default function HomepageComp() {
                     </div>
                 </div>
 
-                <div className="pt-16 min-h-screen bg-white">
+                <div className="pt-16 min-h-screen">
                     <AnimatePresence>
                         {isMobileMenuOpen && (
                             <motion.div
@@ -120,13 +74,13 @@ export default function HomepageComp() {
                                     onClick={() => setIsMobileMenuOpen(false)}
                                 />
                                 <motion.div
-                                    className="relative bg-sky-900 h-full w-64 shadow-xl"
+                                    className="relative bg-sky-900 min-h-screen w-[90%] shadow-xl no-scroll"
                                     initial={{ x: -300 }}
                                     animate={{ x: 0 }}
                                     exit={{ x: -300 }}
                                     transition={{ type: "spring", damping: 30, stiffness: 300 }}
                                 >
-                                    <nav className="h-full overflow-y-auto py-4">
+                                    <nav className="h-full overflow-y-auto py-4 no-scroll">
                                         <div className="space-y-2 px-3">
                                             {heading.map((item) => (
                                                 <button
@@ -145,17 +99,67 @@ export default function HomepageComp() {
                                                     <span className="font-medium">{item.text}</span>
                                                 </button>
                                             ))}
+
+                                        </div>
+
+                                        <div className="relative border rounded-2xl mt-5 bg-amber-100 ml-3.5">
+                                            <input
+                                                type="text"
+                                                placeholder="Search..."
+                                                className="w-full px-3 py-2 rounded-lg text-sm outline-none"
+                                                value={searchTerm}
+                                                onChange={(e) => setSearchTerm(e.target.value)}
+                                            />
+
+                                            {/* Search Results */}
+                                            {searchTerm && (
+                                                <div className="absolute top-12 shadow-lg rounded-lg w-full h-[30vh] overflow-y-auto z-50 no-scroll">
+                                                    {searchResults.length === 0 ? (
+                                                        <p className="p-3 text-gray-500">No results found</p>
+                                                    ) : (
+                                                        searchResults.map((user) => (
+                                                            <div
+                                                                key={user._id}
+                                                                className="flex items-center justify-between p-3 bg-sky-100 hover:bg-gray-100 cursor-pointer "
+                                                            >
+                                                                <div className="flex items-center gap-3 text-xs">
+                                                                    <UserAvatar
+                                                                        gender={user.gender}
+                                                                        firstName={user.firstName}
+                                                                        lastName={user.lastName}
+                                                                    />
+
+                                                                    <p className="font-semibold text-gray-800">
+                                                                        {user.firstName} {user.lastName}
+                                                                    </p>
+                                                                </div>
+
+                                                                <Button
+                                                                    className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
+                                                                    onClick={() => sendFriendRequest(user._id)}
+                                                                >
+                                                                    {/* {isLoading ? "Loading" : "Click"} */}
+                                                                    Send
+                                                                </Button>
+                                                            </div>
+                                                        ))
+                                                    )}
+                                                </div>
+                                            )}
+
                                         </div>
                                     </nav>
                                 </motion.div>
                             </motion.div>
                         )}
+
                     </AnimatePresence>
 
                     <div className="h-[calc(100vh-4rem)] overflow-y-auto scroll-smooth no-scroll">
                         <div className="min-h-full">
                             {item === 'Dashboard' && <DashBoardComp />}
                             {item === 'Accept Requests' && <AcceptFriendRequest />}
+                            {item === 'Friends' && <FriendsBucketList />}
                         </div>
                     </div>
                 </div>

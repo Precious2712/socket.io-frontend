@@ -10,11 +10,8 @@ interface FriendsListProps {
 export function FriendsList({ data }: FriendsListProps) {
     const friends = data ?? [];
 
-    console.log('count-friends', friends);
-    
-
     return (
-        <div className="pt-20 bg-red-300 gap-6 max-w-7xl mx-auto">
+        <div className="mt-5 bg-white w-[95%] h-[80vh] mx-auto md:max-w-2xl lg:max-w-4xl lg:mt-20">
             {friends.length === 0 && (
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
@@ -40,13 +37,14 @@ export function FriendsList({ data }: FriendsListProps) {
                 </motion.div>
             )}
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 bg-pink-300 m-auto">
+            <div className="w-full  grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 p-5">
                 {friends.map((item, i) => {
-                    const friend =
-                        item.senderId.login === true ? item.senderId : item.receiverId;
+                    const reciever =
+                        item.senderId.login === false ? item.senderId : item.receiverId;
 
-                    const name = `${friend.firstName} ${friend.lastName}`;
-                    const initials = friend.firstName.charAt(0) + friend.lastName.charAt(0);
+                    const name = `${reciever.firstName} ${reciever.lastName}`;
+                    
+                    const initials = item.receiverId.firstName.charAt(0) + item.receiverId.lastName.charAt(0);
 
                     return (
                         <motion.div
@@ -54,7 +52,7 @@ export function FriendsList({ data }: FriendsListProps) {
                             initial={{ opacity: 0, y: 20 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ delay: i * 0.05 }}
-                            className="bg-white rounded-2xl shadow-lg p-4 flex items-center gap-4 hover:shadow-xl transform hover:-translate-y-1 transition-all"
+                            className=" w-full rounded-2xl shadow-lg p-4 flex items-center gap-4 hover:shadow-xl transform hover:-translate-y-1 transition-all lg:col-span-3"
                         >
                             <div className="relative">
                                 <div className="w-14 h-14 rounded-full bg-blue-600 flex items-center justify-center text-white text-xl font-semibold">
@@ -62,7 +60,7 @@ export function FriendsList({ data }: FriendsListProps) {
                                 </div>
 
                                 <span
-                                    className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${friend.login ? "bg-green-500" : "bg-gray-400"
+                                    className={`absolute bottom-0 right-0 w-4 h-4 rounded-full border-2 border-white ${reciever.login ? "bg-green-500" : "bg-gray-400"
                                         }`}
                                 ></span>
                             </div>
@@ -70,7 +68,7 @@ export function FriendsList({ data }: FriendsListProps) {
                             <div className="flex-1">
                                 <h3 className="text-lg font-semibold text-slate-800">{name}</h3>
                                 <p className="text-sm text-gray-500">
-                                    {friend.gender}
+                                    {reciever.gender}
                                 </p>
                             </div>
 

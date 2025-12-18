@@ -181,6 +181,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             }
 
             console.log(res.data, "accepted-response");
+            totalFriend();
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -196,7 +197,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleReject = async (id: string) => {
         try {
-            const res = await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "rejected" });
+            await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "rejected" });
         } catch (error) {
             console.error("Update error:", error);
         }
