@@ -16,9 +16,7 @@ import { AcceptFriendRequest } from "@/components/home-pages/AcceptFriendRequest
 import { RejectRequest } from "@/components/home-pages/RejectRequest";
 import { FriendsBucketList } from "@/components/home-pages/FriendsBucketList";
 import { OfflinePage } from "@/components/home-pages/OfflineUserList";
-import { OnlineUsersList } from "@/components/DashBoardComp/online-users";
 import { OnlinePage } from "@/components/home-pages/OnlineUerList";
-import Link from "next/link";
 import WelcomeChatPage from "../chat-room-link/page";
 
 
