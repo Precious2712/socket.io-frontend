@@ -60,7 +60,7 @@ export default function LoginPage() {
                     duration: 0.8,
                     ease: "easeOut",
                 }}
-                className="mt-2 overflow-hidden w-[90%] lg:w-[430px] shadow-md p-6 rounded-2xl "
+                className="mt-2 overflow-hidden w-[90%] md:w-[430px] shadow-md p-6 rounded-2xl "
             >
                 <LoginFormComp />
             </motion.div>

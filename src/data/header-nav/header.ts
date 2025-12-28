@@ -35,7 +35,7 @@ export const heading: NavItem[] = [
   },
   {
     id: 4,
-    text: "Online Friends",
+    text: "Offline Friends",
     icon: React.createElement(MessageSquare, { className: "w-5 h-5" }),
     path: "/chat",
   },
@@ -53,7 +53,7 @@ export const heading: NavItem[] = [
   },
   {
     id: 7,
-    text: "N0 of Accepted Request",
+    text: "Chat-Room",
     icon: React.createElement(UserPlus, { className: "w-5 h-5" }),
     path: "/requests/accept",
   },

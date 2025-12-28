@@ -14,8 +14,10 @@ import { UserFriendRequest } from "@/data/user/data";
 import { FriendsResponse } from "@/data/user/record";
 import { AcceptedCountResponse } from "@/data/user/count";
 import { UserStatusResponse } from "@/data/user/user-status";
+import { User, UsersResponse } from "@/data/user/chat";
 
 import { searchedUser } from "@/data/header-nav/search-user";
+
 
 type AppContextType = {
     handleSelectItem: (text: string) => void;
@@ -41,6 +43,7 @@ type AppContextType = {
     count: AcceptedCountResponse | null;
     status: UserStatusResponse | null;
     absent: UserStatusResponse | null;
+    chat: User[];
 
 };
 
@@ -58,6 +61,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
     const [count, setCount] = useState<AcceptedCountResponse | null>(null);
     const [status, setStatus] = useState<UserStatusResponse | null>(null);
     const [absent, setAbsent] = useState<UserStatusResponse | null>(null);
+    const [chat, setChat] = useState<User[]>([]);
 
     const navigate = useRouter();
 
@@ -70,10 +74,6 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                 try {
                     await Promise.allSettled([
                         axios.put(`http://localhost:5000/auth/${id}`, { login: false }),
-                        // axios.put(
-                        //     `http://localhost:5000/request/user/${id}/login`,
-                        //     { login: false }
-                        // )
                     ]);
                 } catch (e) {
                     console.log("logout update error:", e);
@@ -189,7 +189,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleDeleteRequest = async (id: string) => {
         try {
-            const res = await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "accepted" });
+            await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "accepted" });
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -265,6 +265,17 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     }
 
+    const Users = async () => {
+        try {
+            const res = await axios.get<UsersResponse>(`http://localhost:5000/auth/fetch-users`);
+            console.log(res.data?.users);
+            setChat(res.data?.users);
+        } catch (err) {
+            let msg = "A friend request already exists.";
+            if (isAxiosError(err)) msg = err.response?.data?.message || msg;
+        }
+    }
+
 
 
     useEffect(() => {
@@ -273,6 +284,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         totalFriend()
         onlineUsers();
         offlineUsers();
+        Users();
     }, [])
 
     return (
@@ -288,7 +300,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                 sendFriendRequest,
                 isLoading,
                 show,
-                // Add the missing properties
+                chat,
                 request,
                 handleUpdate,
                 handleDeleteRequest,

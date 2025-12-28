@@ -1,5 +1,4 @@
 
-
 export interface PopulatedSender {
     _id: string;
     firstName: string;

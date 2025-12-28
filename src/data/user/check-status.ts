@@ -1,4 +1,4 @@
-interface User {
+export interface User {
     _id: string;
     firstName: string;
     lastName: string;
@@ -11,7 +11,7 @@ interface User {
     __v: number;
 }
 
-interface OfflineOrOnlineData {
+export interface OfflineOrOnlineData {
     message: string;
     success: boolean;
     offlineOrOnline: User[];

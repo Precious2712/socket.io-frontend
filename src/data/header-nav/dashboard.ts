@@ -65,7 +65,7 @@ export const dashboardData: DashboardCard[] = [
     },
     {
         id: 5,
-        title: "Unread Messages",
+        title: "Chat Room",
         value: "8 Unread",
         description: "Messages requiring your attention",
         color: "linear-gradient(135deg, #FFEAA7 0%, #FFF4D1 100%)",

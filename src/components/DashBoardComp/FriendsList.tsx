@@ -11,7 +11,7 @@ export function FriendsList({ data }: FriendsListProps) {
     const friends = data ?? [];
 
     return (
-        <div className="mt-5 bg-white w-[95%] h-[80vh] mx-auto md:max-w-2xl lg:max-w-4xl lg:mt-20">
+        <div className="mt-5  w-[95%] h-[80vh] mx-auto md:max-w-2xl lg:max-w-4xl lg:mt-20">
             {friends.length === 0 && (
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}

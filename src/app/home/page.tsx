@@ -15,6 +15,11 @@ import { UserAvatar } from "@/components/DashBoardComp/UserAvatar";
 import { AcceptFriendRequest } from "@/components/home-pages/AcceptFriendRequest";
 import { RejectRequest } from "@/components/home-pages/RejectRequest";
 import { FriendsBucketList } from "@/components/home-pages/FriendsBucketList";
+import { OfflinePage } from "@/components/home-pages/OfflineUserList";
+import { OnlineUsersList } from "@/components/DashBoardComp/online-users";
+import { OnlinePage } from "@/components/home-pages/OnlineUerList";
+import Link from "next/link";
+import WelcomeChatPage from "../chat-room-link/page";
 
 
 export default function HomepageComp() {
@@ -60,106 +65,99 @@ export default function HomepageComp() {
                     </div>
                 </div>
 
-                <div className="pt-16 min-h-screen">
-                    <AnimatePresence>
-                        {isMobileMenuOpen && (
-                            <motion.div
-                                className="fixed inset-0 z-40"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <div
-                                    className="absolute inset-0 bg-black/50"
-                                    onClick={() => setIsMobileMenuOpen(false)}
-                                />
-                                <motion.div
-                                    className="relative bg-sky-900 min-h-screen w-[90%] shadow-xl no-scroll"
-                                    initial={{ x: -300 }}
-                                    animate={{ x: 0 }}
-                                    exit={{ x: -300 }}
-                                    transition={{ type: "spring", damping: 30, stiffness: 300 }}
-                                >
-                                    <nav className="h-full overflow-y-auto py-4 no-scroll">
-                                        <div className="space-y-2 px-3">
-                                            {heading.map((item) => (
-                                                <button
-                                                    key={item.id}
-                                                    onClick={() => {
-                                                        handleNavClick(item.id);
-                                                        handleSelectItem(item.text);
-                                                        setIsMobileMenuOpen(false);
-                                                    }}
-                                                    className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-sm ${activeId === item.id
-                                                        ? "bg-sky-700 text-white shadow-md"
-                                                        : "text-sky-100 hover:bg-sky-800 hover:text-white"
-                                                        }`}
-                                                >
-                                                    {item.icon}
-                                                    <span className="font-medium">{item.text}</span>
-                                                </button>
-                                            ))}
+                <AnimatePresence>
+                    {isMobileMenuOpen && (
+                        <motion.div
+                            className="fixed z-50 bg-sky-900 w-[90%] shadow-xl no-scroll pt-16 pb-16"
+                            initial={{ x: -300 }}
+                            animate={{ x: 0 }}
+                            exit={{ x: -300 }}
+                            transition={{ type: "spring", damping: 30, stiffness: 300 }}
+                        >
+                            <nav className=" overflow-y-auto py-4 no-scroll">
+                                <div className="space-y-2 px-3">
+                                    {heading.map((item) => (
+                                        <button
+                                            key={item.id}
+                                            onClick={() => {
+                                                handleNavClick(item.id);
+                                                handleSelectItem(item.text);
+                                                setIsMobileMenuOpen(false);
+                                            }}
+                                            className={`w-full flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 text-sm ${activeId === item.id
+                                                ? "bg-sky-700 text-white shadow-md"
+                                                : "text-sky-100 hover:bg-sky-800 hover:text-white"
+                                                }`}
+                                        >
+                                            {item.icon}
+                                            <span className="font-medium">{item.text}</span>
+                                        </button>
+                                    ))}
 
-                                        </div>
+                                </div>
 
-                                        <div className="relative border rounded-2xl mt-5 bg-amber-100 ml-3.5">
-                                            <input
-                                                type="text"
-                                                placeholder="Search..."
-                                                className="w-full px-3 py-2 rounded-lg text-sm outline-none"
-                                                value={searchTerm}
-                                                onChange={(e) => setSearchTerm(e.target.value)}
-                                            />
+                                <div className="w-[80%] relative border rounded-2xl mt-5 bg-amber-100 ml-3.5">
+                                    <input
+                                        type="text"
+                                        placeholder="Search..."
+                                        className="w-full px-3 py-2 rounded-lg text-sm outline-none"
+                                        value={searchTerm}
+                                        onChange={(e) => setSearchTerm(e.target.value)}
+                                    />
 
-                                            {/* Search Results */}
-                                            {searchTerm && (
-                                                <div className="absolute top-12 shadow-lg rounded-lg w-full h-[30vh] overflow-y-auto z-50 no-scroll">
-                                                    {searchResults.length === 0 ? (
-                                                        <p className="p-3 text-gray-500">No results found</p>
-                                                    ) : (
-                                                        searchResults.map((user) => (
-                                                            <div
-                                                                key={user._id}
-                                                                className="flex items-center justify-between p-3 bg-sky-100 hover:bg-gray-100 cursor-pointer "
-                                                            >
-                                                                <div className="flex items-center gap-3 text-xs">
-                                                                    <UserAvatar
-                                                                        gender={user.gender}
-                                                                        firstName={user.firstName}
-                                                                        lastName={user.lastName}
-                                                                    />
+                                    {/* Search Results */}
+                                    {searchTerm && (
+                                        <div className="absolute top-12 shadow-lg rounded-lg w-full h-[30vh] overflow-y-auto z-50 no-scroll">
+                                            {searchResults.length === 0 ? (
+                                                <p className="p-3 text-gray-500">No results found</p>
+                                            ) : (
+                                                searchResults.map((user) => (
+                                                    <div
+                                                        key={user._id}
+                                                        className="flex items-center justify-between p-3 bg-sky-100 hover:bg-gray-100 cursor-pointer "
+                                                    >
+                                                        <div className="flex items-center gap-3 text-xs">
+                                                            <UserAvatar
+                                                                gender={user.gender}
+                                                                firstName={user.firstName}
+                                                                lastName={user.lastName}
+                                                            />
 
-                                                                    <p className="font-semibold text-gray-800">
-                                                                        {user.firstName} {user.lastName}
-                                                                    </p>
-                                                                </div>
+                                                            <p className="font-semibold text-gray-800">
+                                                                {user.firstName} {user.lastName}
+                                                            </p>
+                                                        </div>
 
-                                                                <Button
-                                                                    className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
-                                                                    onClick={() => sendFriendRequest(user._id)}
-                                                                >
-                                                                    {/* {isLoading ? "Loading" : "Click"} */}
-                                                                    Send
-                                                                </Button>
-                                                            </div>
-                                                        ))
-                                                    )}
-                                                </div>
+                                                        <Button
+                                                            className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
+                                                            onClick={() => sendFriendRequest(user._id)}
+                                                        >
+                                                            {/* {isLoading ? "Loading" : "Click"} */}
+                                                            Send
+                                                        </Button>
+                                                    </div>
+                                                ))
                                             )}
-
                                         </div>
-                                    </nav>
-                                </motion.div>
-                            </motion.div>
-                        )}
+                                    )}
 
-                    </AnimatePresence>
+                                </div>
+                            </nav>
+                        </motion.div>
+                    )}
+
+                </AnimatePresence>
+
+                <div className="pt-16 h-screen">
 
                     <div className="h-[calc(100vh-4rem)] overflow-y-auto scroll-smooth no-scroll">
                         <div className="min-h-full">
                             {item === 'Dashboard' && <DashBoardComp />}
                             {item === 'Accept Requests' && <AcceptFriendRequest />}
                             {item === 'Friends' && <FriendsBucketList />}
+                            {item === 'Offline Friends' && <OfflinePage />}
+                            {item === 'Online Friends' && <OnlinePage />}
+                            {item === 'Chat-Room' && <WelcomeChatPage />}
                         </div>
                     </div>
                 </div>
@@ -275,6 +273,12 @@ export default function HomepageComp() {
                     {item === 'Accept Requests' && <AcceptFriendRequest />}
                     {item === 'Reject Requests' && <RejectRequest />}
                     {item === 'Friends' && <FriendsBucketList />}
+                    {item === 'Offline Friends' && <OfflinePage />}
+                    {item === 'Online Friends' && <OnlinePage />}
+
+                    {item === 'Chat-Room' && (
+                        <WelcomeChatPage />
+                    )}
                 </div>
             </div>
         </div>
