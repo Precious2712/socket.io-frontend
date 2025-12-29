@@ -142,8 +142,8 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                 {messages.map(msg => (
                     <div
                         key={msg._id}
-                        className={`max-w-xs p-2 rounded ${msg.senderId === currentUser._id
-                                ? 'ml-auto bg-pink-600 text-white'
+                        className={` max-w-xs p-2 rounded ${msg.senderId === currentUser._id
+                                ? 'ml-auto bg-gray-600 text-white'
                                 : 'bg-gray-200'
                             }`}
                     >

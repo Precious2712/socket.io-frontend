@@ -1,17 +1,12 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { BoxItemsProvider } from "@/useContext/context";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const inter = Inter({
   subsets: ["latin"],
+  display: "swap",
 });
-
-// const geistMono = Geist_Mono({
-//   variable: "--font-geist-mono",
-//   subsets: ["latin"],
-// });
 
 export const metadata: Metadata = {
   title: "Create Next App",
@@ -19,28 +14,18 @@ export const metadata: Metadata = {
 };
 
 function ClientLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <>
-      <BoxItemsProvider>
-        {children}
-      </BoxItemsProvider>
-    </>
-  );
+  return <BoxItemsProvider>{children}</BoxItemsProvider>;
 }
 
 export default function RootLayout({
   children,
-}: Readonly<{
+}: {
   children: React.ReactNode;
-}>) {
+}) {
   return (
     <html lang="en">
-      <body
-        className={`${geistSans.variable}  antialiased`}
-      >
-        <ClientLayout>
-          {children}
-        </ClientLayout>
+      <body className={`${inter.className} antialiased`}>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
