@@ -32,7 +32,7 @@ export function SignupFormComps() {
         console.log('values', data);
         try {
             setLoading(true);
-            const res = await axios.post('https://socket-backend-gp0t.onrender.com/auth/create', data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/create`, data);
             console.log('res', res);
             if (res) {
                 toast.success(res.data.message);

@@ -31,7 +31,7 @@ export function LoginFormComp() {
         try {
             setLoading(true);
 
-            const res = await axios.post('https://socket-backend-gp0t.onrender.com/auth/sign-in', data);
+            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/sign-in`, data);
 
             const user = res.data.registeredUser;
 
@@ -45,7 +45,7 @@ export function LoginFormComp() {
 
             toast.success("Login successful", res.data.message);
 
-            axios.put(`https://socket-io-frontend-navy.vercel.app/auth/${id}`, { login: true })
+            axios.put(`${process.env.NEXT_PUBLIC_API_URL}/auth/${id}`, { login: true })
            .catch(() => console.warn("loginStatus update failed"));
 
             useNavigate.push('/home');
@@ -53,7 +53,7 @@ export function LoginFormComp() {
         } catch (error) {
             let err = 'An error has occurred';
             if (isAxiosError(error)) err = error.response?.data.message;
-            alert(err);
+            toast.error(err);
         } finally {
             setLoading(false);
         }
