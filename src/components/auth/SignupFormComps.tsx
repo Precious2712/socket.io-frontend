@@ -32,7 +32,7 @@ export function SignupFormComps() {
         console.log('values', data);
         try {
             setLoading(true);
-            const res = await axios.post('https://socket-io-frontend-navy.vercel.app/auth/create', data);
+            const res = await axios.post('https://socket-backend-gp0t.onrender.com/auth/create', data);
             console.log('res', res);
             if (res) {
                 toast.success(res.data.message);
@@ -44,7 +44,7 @@ export function SignupFormComps() {
             let err = 'An error has occur'
             if (isAxiosError(error)) {
                 err = error.response?.data.message;
-                alert(err);
+                toast.error(err);
             }
         } finally {
             setLoading(false);

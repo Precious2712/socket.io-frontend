@@ -31,7 +31,7 @@ export function LoginFormComp() {
         try {
             setLoading(true);
 
-            const res = await axios.post('https://socket-io-frontend-navy.vercel.app/auth/sign-in', data);
+            const res = await axios.post('https://socket-backend-gp0t.onrender.com/auth/sign-in', data);
 
             const user = res.data.registeredUser;
 
