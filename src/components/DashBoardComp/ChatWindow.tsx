@@ -143,7 +143,7 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                     <div
                         key={msg._id}
                         className={` max-w-xs p-2 rounded ${msg.senderId === currentUser._id
-                                ? 'ml-auto bg-gray-600 text-white'
+                                ? 'ml-auto bg-gray-600 text-black'
                                 : 'bg-gray-200'
                             }`}
                     >
@@ -168,7 +168,7 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                 />
                 <button
                     onClick={sendMessage}
-                    className="bg-pink-600 text-white px-4 rounded"
+                    className="bg-green-800 text-white px-4 rounded"
                 >
                     Send
                 </button>

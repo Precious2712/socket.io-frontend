@@ -11,6 +11,7 @@ import axios, { isAxiosError } from "axios";
 import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export function SignupFormComps() {
     const [loading, setLoading] = useState(false);
@@ -31,12 +32,10 @@ export function SignupFormComps() {
         console.log('values', data);
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:5000/auth/create', data);
+            const res = await axios.post('https://socket-io-frontend-navy.vercel.app/auth/create', data);
             console.log('res', res);
-            // localStorage.setItem('user_id', res.data.user._id);
-            // localStorage.setItem('user_firstName', res.data.user.firstName);
             if (res) {
-                alert(res.data.message);
+                toast.success(res.data.message);
                 useNavigate.push('/login');
             }
 

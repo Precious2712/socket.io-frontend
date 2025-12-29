@@ -11,6 +11,7 @@ import { portal } from "@/data/auths/auths";
 import { ShacdnLogin } from "./ShacdnLogin";
 import axios, { isAxiosError } from "axios";
 import Link from "next/link";
+import { toast } from "sonner";
 
 export function LoginFormComp() {
     const [loading, setLoading] = useState(false);
@@ -30,7 +31,7 @@ export function LoginFormComp() {
         try {
             setLoading(true);
 
-            const res = await axios.post('http://localhost:5000/auth/sign-in', data);
+            const res = await axios.post('https://socket-io-frontend-navy.vercel.app/auth/sign-in', data);
 
             const user = res.data.registeredUser;
 
@@ -42,13 +43,10 @@ export function LoginFormComp() {
 
             const id = user._id;
 
-            alert(res.data.message);
+            toast.success("Login successful", res.data.message);
 
-            axios.put(`http://localhost:5000/auth/${id}`, { login: true })
+            axios.put(`https://socket-io-frontend-navy.vercel.app/auth/${id}`, { login: true })
            .catch(() => console.warn("loginStatus update failed"));
-
-        //    axios.put(`http://localhost:5000/request/user/${id}/login`, {login: true})
-        //    .catch(() => console.warn("loginStatus update failed"));
 
             useNavigate.push('/home');
 

@@ -73,7 +73,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             if (id) {
                 try {
                     await Promise.allSettled([
-                        axios.put(`http://localhost:5000/auth/${id}`, { login: false }),
+                        axios.put(`https://socket-io-frontend-navy.vercel.app/auth/${id}`, { login: false }),
                     ]);
                 } catch (e) {
                     console.log("logout update error:", e);
@@ -102,7 +102,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                     success: boolean
                     data: searchedUser[]
                 }>(
-                    `http://localhost:5000/auth/search?firstName=${encodeURIComponent(
+                    `https://socket-io-frontend-navy.vercel.app/auth/search?firstName=${encodeURIComponent(
                         searchTerm
                     )}`
                 );
@@ -136,7 +136,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         try {
             setIsLoading(true);
 
-            const res = await axios.post("http://localhost:5000/sender/send", payload);
+            const res = await axios.post("https://socket-io-frontend-navy.vercel.app/sender/send", payload);
             console.log(res.data, "sender-request-view");
 
         } catch (err) {
@@ -154,7 +154,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<UserFriendRequest[]>(
-                `http://localhost:5000/sender/pending/${id}`
+                `https://socket-io-frontend-navy.vercel.app/sender/pending/${id}`
             );
             console.log("datta", res.data);
             setRequest(res.data);
@@ -169,7 +169,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             console.log(currentUserId);
 
             const res = await axios.put(
-                `http://localhost:5000/sender/update/${id}`,
+                `https://socket-io-frontend-navy.vercel.app/sender/update/${id}`,
                 {
                     status: "accepted",
                     currentUserId
@@ -189,7 +189,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleDeleteRequest = async (id: string) => {
         try {
-            await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "accepted" });
+            await axios.put(`https://socket-io-frontend-navy.vercel.app/sender/update/${id}`, { status: "accepted" });
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -197,7 +197,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleReject = async (id: string) => {
         try {
-            await axios.put(`http://localhost:5000/sender/update/${id}`, { status: "rejected" });
+            await axios.put(`https://socket-io-frontend-navy.vercel.app/sender/update/${id}`, { status: "rejected" });
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -209,7 +209,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<AcceptedCountResponse>(
-                `http://localhost:5000/sender/accepted-count/${userId}`
+                `https://socket-io-frontend-navy.vercel.app/sender/accepted-count/${userId}`
             );
 
             setCount(res.data);
@@ -230,7 +230,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<FriendsResponse>(
-                `http://localhost:5000/sender/friends/${userId}`
+                `https://socket-io-frontend-navy.vercel.app/sender/friends/${userId}`
             );
             console.log('total-friends', res.data);
             setFriendsData(res.data)
@@ -243,7 +243,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const offlineUsers = async () => {
         try {
-            const res = await axios.get<UserStatusResponse>(`http://localhost:5000/auth/status-check?login=${false}`);
+            const res = await axios.get<UserStatusResponse>(`https://socket-io-frontend-navy.vercel.app/auth/status-check?login=${false}`);
             console.log(res, 'offline-users');
             setAbsent(res.data);
         } catch (err) {
@@ -255,7 +255,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const onlineUsers = async () => {
         try {
-            const res = await axios.get<UserStatusResponse>(`http://localhost:5000/auth/status-check?login=${true}`);
+            const res = await axios.get<UserStatusResponse>(`https://socket-io-frontend-navy.vercel.app/auth/status-check?login=${true}`);
             console.log(res, 'online-users');
             setStatus(res.data);
         } catch (err) {
@@ -267,7 +267,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const Users = async () => {
         try {
-            const res = await axios.get<UsersResponse>(`http://localhost:5000/auth/fetch-users`);
+            const res = await axios.get<UsersResponse>(`https://socket-io-frontend-navy.vercel.app/auth/fetch-users`);
             console.log(res.data?.users);
             setChat(res.data?.users);
         } catch (err) {

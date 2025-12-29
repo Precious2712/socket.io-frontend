@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import { FriendRecord } from "@/data/user/record";
+import Link from "next/link";
 
 interface FriendsListProps {
     data?: FriendRecord[] | null;
@@ -73,12 +74,12 @@ export function FriendsList({ data }: FriendsListProps) {
                             </div>
 
                             <div className="flex flex-col gap-2">
-                                <button className="py-1 px-3 bg-blue-600 text-white rounded-xl text-sm hover:bg-blue-700">
+                                <Link href='/chat' className="py-1 px-3 bg-blue-600 text-white rounded-xl text-sm hover:bg-blue-700">
                                     Message
-                                </button>
-                                <button className="py-1 px-3 border border-blue-600 text-blue-600 rounded-xl text-sm hover:bg-blue-50">
+                                </Link>
+                                {/* <button className="py-1 px-3 border border-blue-600 text-blue-600 rounded-xl text-sm hover:bg-blue-50">
                                     View
-                                </button>
+                                </button> */}
                             </div>
                         </motion.div>
                     );
