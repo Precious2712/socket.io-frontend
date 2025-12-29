@@ -17,7 +17,7 @@ import { UserStatusResponse } from "@/data/user/user-status";
 import { User, UsersResponse } from "@/data/user/chat";
 
 import { searchedUser } from "@/data/header-nav/search-user";
-
+import { toast } from "sonner";
 
 type AppContextType = {
     handleSelectItem: (text: string) => void;
@@ -142,7 +142,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         } catch (err) {
             let msg = "A friend request already exists.";
             if (isAxiosError(err)) msg = err.response?.data?.message || msg;
-            alert(msg);
+            toast.warning(msg);
         } finally {
             setIsLoading(false);
         }
@@ -177,7 +177,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             );
 
             if (res) {
-                alert('Request accepted');
+                toast.success('Request accepted');
             }
 
             console.log(res.data, "accepted-response");
@@ -249,7 +249,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         } catch (err) {
             let msg = "A friend request already exists.";
             if (isAxiosError(err)) msg = err.response?.data?.message || msg;
-            alert(msg);
+            toast.warning(msg);
         }
     }
 
@@ -261,7 +261,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         } catch (err) {
             let msg = "A friend request already exists.";
             if (isAxiosError(err)) msg = err.response?.data?.message || msg;
-            alert(msg);
+            toast.warning(msg);
         }
     }
 
