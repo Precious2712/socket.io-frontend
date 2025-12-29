@@ -1,4 +1,4 @@
-import { Clock, CheckCircle2, Users, MessageSquare, Settings, LogOut, LayoutDashboard, UserPlus } from "lucide-react";
+import { Clock, CheckCircle2, Users, Globe, Settings, LogOut, LayoutDashboard, UserPlus, Bubbles  } from "lucide-react";
 import React from "react";
 
 interface NavItem {
@@ -36,13 +36,13 @@ export const heading: NavItem[] = [
   {
     id: 4,
     text: "Offline Friends",
-    icon: React.createElement(MessageSquare, { className: "w-5 h-5" }),
+    icon: React.createElement(Bubbles, { className: "w-5 h-5" }),
     path: "/chat",
   },
   {
     id: 5,
     text: "Online Friends",
-    icon: React.createElement(MessageSquare, { className: "w-5 h-5" }),
+    icon: React.createElement(Globe, { className: "w-5 h-5" }),
     path: "/chat",
   },
   {

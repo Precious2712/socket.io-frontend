@@ -76,6 +76,8 @@
   --sidebar-accent-foreground: oklch(0.21 0.034 264.665);
   --sidebar-border: oklch(0.928 0.006 264.531);
   --sidebar-ring: oklch(0.707 0.022 261.325);
+
+
 }
 
 .dark {
@@ -131,4 +133,29 @@
   body::-webkit-scrollbar {
     display: none;
   }
+}
+
+:root {
+  --sonner-toast-bg: oklch(0.21 0.034 264.665);
+  --sonner-toast-text: oklch(0.985 0.002 247.839);
+  --sonner-toast-border: oklch(0.278 0.033 256.848);
+}
+
+[data-sonner-toast][data-type="success"] {
+  background: oklch(0.646 0.222 41.116);
+  color: white;
+}
+
+[data-sonner-toast][data-type="error"] {
+  background: oklch(0.577 0.245 27.325);
+  color: white;
+}
+
+[data-sonner-toast][data-type="warning"] {
+  background: oklch(0.828 0.189 84.429);
+  color: black;
+}
+
+[data-sonner-toast] [data-description] {
+  opacity: 0.9;
 }

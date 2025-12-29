@@ -18,13 +18,13 @@ export function Sidebar({
     unreadCounts = {},
 }: Props) {
     return (
-        <aside className="w-72 h-screen border-r bg-white flex flex-col bg-gray-600">
+        <aside className="w-72 h-screen border-r flex flex-col bg-gray-600">
             <div className='flex justify-between p-3 items-center bg-gray-200'>
                 <div className='flex gap-3'>
                     <Link href='/home'>
                         <CircleChevronRight className='w-4 h-4' />
                     </Link>
-                    <ArrowLeft className='w-4 h-4' />
+                    <ArrowLeft className='w-4 h-4 cursor-pointer' />
                 </div>
                 <span className='font-bold text-red-600 font-sans hover:text-red-300 cursor-pointer'>Chats</span>
             </div>

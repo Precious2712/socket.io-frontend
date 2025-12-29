@@ -73,7 +73,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             if (id) {
                 try {
                     await Promise.allSettled([
-                        axios.put(`${process.env.NEXT_PUBLIC_API_UR}/auth/${id}`, { login: false }),
+                        axios.put(`https://socket-backend-gp0t.onrender.com/auth/${id}`, { login: false }),
                     ]);
                 } catch (e) {
                     console.log("logout update error:", e);
@@ -102,7 +102,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                     success: boolean
                     data: searchedUser[]
                 }>(
-                    `${process.env.NEXT_PUBLIC_API_UR}/auth/search?firstName=${encodeURIComponent(
+                    `https://socket-backend-gp0t.onrender.com/auth/search?firstName=${encodeURIComponent(
                         searchTerm
                     )}`
                 );
@@ -136,7 +136,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         try {
             setIsLoading(true);
 
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_UR}/sender/send`, payload);
+            const res = await axios.post(`https://socket-backend-gp0t.onrender.com/sender/send`, payload);
             console.log(res.data, "sender-request-view");
 
         } catch (err) {
@@ -154,7 +154,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<UserFriendRequest[]>(
-                `${process.env.NEXT_PUBLIC_API_UR}/sender/pending/${id}`
+                `https://socket-backend-gp0t.onrender.com/sender/pending/${id}`
             );
             console.log("datta", res.data);
             setRequest(res.data);
@@ -169,7 +169,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             console.log(currentUserId);
 
             const res = await axios.put(
-                `${process.env.NEXT_PUBLIC_API_UR}/sender/update/${id}`,
+                `https://socket-backend-gp0t.onrender.com/sender/update/${id}`,
                 {
                     status: "accepted",
                     currentUserId
@@ -189,7 +189,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleDeleteRequest = async (id: string) => {
         try {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_UR}/sender/update/${id}`, { status: "accepted" });
+            await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "accepted" });
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -197,7 +197,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const handleReject = async (id: string) => {
         try {
-            await axios.put(`${process.env.NEXT_PUBLIC_API_UR}/sender/update/${id}`, { status: "rejected" });
+            await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "rejected" });
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -209,7 +209,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<AcceptedCountResponse>(
-                `${process.env.NEXT_PUBLIC_API_UR}/sender/accepted-count/${userId}`
+                `https://socket-backend-gp0t.onrender.com/sender/accepted-count/${userId}`
             );
 
             setCount(res.data);
@@ -243,7 +243,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const offlineUsers = async () => {
         try {
-            const res = await axios.get<UserStatusResponse>(`${process.env.NEXT_PUBLIC_API_UR}/auth/status-check?login=${false}`);
+            const res = await axios.get<UserStatusResponse>(`https://socket-backend-gp0t.onrender.com/auth/status-check?login=${false}`);
             console.log(res, 'offline-users');
             setAbsent(res.data);
         } catch (err) {
@@ -255,7 +255,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const onlineUsers = async () => {
         try {
-            const res = await axios.get<UserStatusResponse>(`${process.env.NEXT_PUBLIC_API_UR}/auth/status-check?login=${true}`);
+            const res = await axios.get<UserStatusResponse>(`https://socket-backend-gp0t.onrender.com/auth/status-check?login=${true}`);
             console.log(res, 'online-users');
             setStatus(res.data);
         } catch (err) {
@@ -267,7 +267,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
     const Users = async () => {
         try {
-            const res = await axios.get<UsersResponse>(`${process.env.NEXT_PUBLIC_API_UR}/auth/fetch-users`);
+            const res = await axios.get<UsersResponse>(`https://socket-backend-gp0t.onrender.com/auth/fetch-users`);
             console.log(res.data?.users);
             setChat(res.data?.users);
         } catch (err) {

@@ -1,9 +1,5 @@
 import { io } from 'socket.io-client';
 
-export const socket = io(
-    process.env.NEXT_PUBLIC_SOCKET_URL!,
-    {
-        withCredentials: true,
-        autoConnect: false,
-    }
-);
+export const socket = io('https://socket-backend-gp0t.onrender.com', {
+    autoConnect: false,
+});

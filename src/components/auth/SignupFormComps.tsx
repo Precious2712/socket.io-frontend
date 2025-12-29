@@ -32,7 +32,7 @@ export function SignupFormComps() {
         console.log('values', data);
         try {
             setLoading(true);
-            const res = await axios.post(`${process.env.NEXT_PUBLIC_API_URL}/auth/create`, data);
+            const res = await axios.post(`https://socket-backend-gp0t.onrender.com/auth/create`, data);
             console.log('res', res);
             if (res) {
                 toast.success(res.data.message);
@@ -61,7 +61,7 @@ export function SignupFormComps() {
                         </div>
                     ))}
                     <Button
-                        className={`w-full hover:bg-blue-600 hover:text-black ${loading ? 'bg-green-600' : 'bg-gray-800'
+                        className={`w-full cursor-pointer hover:bg-blue-600 hover:text-black ${loading ? 'bg-green-600' : 'bg-gray-800'
                             }`}
                         type="submit"
                     >

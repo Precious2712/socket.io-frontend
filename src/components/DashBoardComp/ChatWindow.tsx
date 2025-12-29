@@ -168,7 +168,7 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                 />
                 <button
                     onClick={sendMessage}
-                    className="bg-green-800 text-white px-4 rounded"
+                    className="bg-green-800 text-white px-4 rounded cursor-pointer"
                 >
                     Send
                 </button>
