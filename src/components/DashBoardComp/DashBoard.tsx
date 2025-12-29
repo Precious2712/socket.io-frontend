@@ -112,7 +112,7 @@ export function DashBoardComp() {
                                             </p>
                                         </div>
 
-                                        <div className="flex justify-end">
+                                        {/* <div className="flex justify-end">
                                             <motion.div
                                                 className="bg-white/25 px-4 py-2 rounded-full backdrop-blur-sm border border-white/40 text-white font-semibold text-sm"
                                                 whileHover={{
@@ -122,7 +122,7 @@ export function DashBoardComp() {
                                             >
                                                 View Details →
                                             </motion.div>
-                                        </div>
+                                        </div> */}
                                     </div>
                                 </div>
                             </motion.li>

@@ -66,7 +66,7 @@ export const dashboardData: DashboardCard[] = [
     {
         id: 5,
         title: "Chat Room",
-        value: "8 Unread",
+        value: "",
         description: "Messages requiring your attention",
         color: "linear-gradient(135deg, #FFEAA7 0%, #FFF4D1 100%)",
         icon: React.createElement(MessageSquare, { size: 28, color: "white" }),

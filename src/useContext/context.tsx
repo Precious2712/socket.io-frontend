@@ -35,7 +35,7 @@ type AppContextType = {
     request: UserFriendRequest[];
 
     handleUpdate: (id: string) => void;
-    handleDeleteRequest: (id: string) => void;
+    // handleDeleteRequest: (id: string) => void;
     show: boolean;
     handleReject: (id: string) => void;
     friendsData: FriendsResponse | null;
@@ -187,17 +187,20 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
         }
     };
 
-    const handleDeleteRequest = async (id: string) => {
-        try {
-            await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "accepted" });
-        } catch (error) {
-            console.error("Update error:", error);
-        }
-    };
+    // const handleDeleteRequest = async (id: string) => {
+    //     try {
+    //         await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "accepted" });
+    //     } catch (error) {
+    //         console.error("Update error:", error);
+    //     }
+    // };
 
     const handleReject = async (id: string) => {
+        const currentUserId = localStorage.getItem("user_id");
+        console.log(currentUserId);
         try {
-            await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "rejected" });
+            await axios.put(`https://socket-backend-gp0t.onrender.com/sender/update/${id}`, { status: "rejected", currentUserId });
+            totalFriend();
         } catch (error) {
             console.error("Update error:", error);
         }
@@ -230,7 +233,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const res = await axios.get<FriendsResponse>(
-                `${process.env.NEXT_PUBLIC_API_UR}/sender/friends/${userId}`
+                `https://socket-backend-gp0t.onrender.com/sender/friends/${userId}`
             );
             console.log('total-friends', res.data);
             setFriendsData(res.data)
@@ -303,7 +306,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
                 chat,
                 request,
                 handleUpdate,
-                handleDeleteRequest,
+                // handleDeleteRequest,
                 handleReject,
                 friendsData,
                 count,

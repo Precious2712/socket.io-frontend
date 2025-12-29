@@ -66,7 +66,7 @@ export default function HomepageComp() {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
-                            className="fixed z-50 bg-sky-900 w-[90%] shadow-xl no-scroll pt-16 pb-16"
+                            className="fixed z-50 bg-sky-900 w-[75%] shadow-xl no-scroll pt-16 pb-16"
                             initial={{ x: -300 }}
                             animate={{ x: 0 }}
                             exit={{ x: -300 }}
