@@ -18,6 +18,7 @@ import { FriendsBucketList } from "@/components/home-pages/FriendsBucketList";
 import { OfflinePage } from "@/components/home-pages/OfflineUserList";
 import { OnlinePage } from "@/components/home-pages/OnlineUerList";
 import WelcomeChatPage from "../chat-room-link/page";
+import Link from "next/link";
 
 
 export default function HomepageComp() {
@@ -45,11 +46,11 @@ export default function HomepageComp() {
     return (
         <div className="relative min-h-screen bg-linear-to-br from-sky-50 to-blue-100 no-scroll">
             {/* Mobile Header & Menu */}
-            <div className="bg-white lg:hidden">
+            <div className="bg-white min-h-screen lg:hidden">
                 <div className="fixed top-0 w-full flex items-center justify-between h-16 px-4 bg-sky-900 z-50">
-                    <div className="flex items-center gap-2">
+                    <Link href='/chat' className="flex items-center gap-2">
                         <MessageCircle className="w-6 h-6 text-white" />
-                    </div>
+                    </Link>
                     <div className="">
                         <Button
                             variant="ghost"
@@ -66,7 +67,7 @@ export default function HomepageComp() {
                 <AnimatePresence>
                     {isMobileMenuOpen && (
                         <motion.div
-                            className="fixed z-50 bg-sky-900 w-[75%] shadow-xl no-scroll pt-16 pb-16"
+                            className="fixed top-0 z-50 bg-sky-900 w-[75%] shadow-xl no-scroll pb-10"
                             initial={{ x: -300 }}
                             animate={{ x: 0 }}
                             exit={{ x: -300 }}
@@ -94,7 +95,7 @@ export default function HomepageComp() {
 
                                 </div>
 
-                                <div className="w-[80%] relative border rounded-2xl mt-5 bg-amber-100 ml-3.5">
+                                <div className="w-[90%] relative border rounded-2xl mt-5 bg-amber-100 ml-3.5">
                                     <input
                                         type="text"
                                         placeholder="Search..."
@@ -105,7 +106,7 @@ export default function HomepageComp() {
 
                                     {/* Search Results */}
                                     {searchTerm && (
-                                        <div className="absolute top-12 shadow-lg rounded-lg w-full h-[30vh] overflow-y-auto z-50 no-scroll">
+                                        <div className="absolute top-12 shadow-lg rounded-lg w-full  overflow-y-auto z-50 no-scroll">
                                             {searchResults.length === 0 ? (
                                                 <p className="p-3 text-gray-500">No results found</p>
                                             ) : (
@@ -152,6 +153,7 @@ export default function HomepageComp() {
                         <div className="min-h-full">
                             {item === 'Dashboard' && <DashBoardComp />}
                             {item === 'Accept Requests' && <AcceptFriendRequest />}
+                            {item === 'Reject Requests' && <RejectRequest />}
                             {item === 'Friends' && <FriendsBucketList />}
                             {item === 'Offline Friends' && <OfflinePage />}
                             {item === 'Online Friends' && <OnlinePage />}

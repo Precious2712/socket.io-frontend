@@ -17,7 +17,6 @@ export default function ChatPage() {
     const { chat } = useAppContext();
 
     const [selectedUser, setSelectedUser] = useState<User | null>(null);
-    // const [unreadCounts, setUnreadCounts] = useState<Record<string, number>>({});
     const [currentUser, setCurrentUser] = useState<CurrentUser | null>(null);
 
     const handleSelectUser = (user: User) => {
@@ -48,31 +47,31 @@ export default function ChatPage() {
 
     return (
         <div className="h-screen flex overflow-hidden">
-
+            {/* Sidebar container - always takes full height */}
             <div
                 className={`
-          w-full md:w-[320px]
-          ${selectedUser ? 'hidden md:block' : 'block'}
-          border-r
-        `}
+                    h-screen w-full md:w-[320px]
+                    ${selectedUser ? 'hidden md:block' : 'block'}
+                    border-r
+                `}
             >
                 <Sidebar
                     users={chat}
                     onSelectUser={handleSelectUser}
                     selectedUserId={selectedUser?._id}
-                    // unreadCounts={unreadCounts}
                 />
             </div>
 
+            {/* Chat window container */}
             <div
                 className={`
-          flex-1
-          ${!selectedUser ? 'hidden md:flex' : 'flex'}
-          flex-col
-        `}
+                    h-screen flex-1
+                    ${!selectedUser ? 'hidden md:flex' : 'flex'}
+                    flex-col
+                `}
             >
                 {selectedUser && (
-                    <div className="md:hidden border-b p-2">
+                    <div className="md:hidden border-b p-2 shrink-0">
                         <button
                             onClick={() => setSelectedUser(null)}
                             className="text-pink-600 font-semibold"

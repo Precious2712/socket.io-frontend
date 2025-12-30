@@ -75,7 +75,7 @@ export function OfflineUsersList({ data }: OfflineUsersListProps) {
                                             {user.firstName} {user.lastName}
                                         </CardTitle>
                                         <CardDescription className="flex items-center gap-1 mt-1">
-                                            <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground" />
+                                            <span className={`inline-block w-2 h-2 rounded-full ${user.login === false ? 'bg-gray-800' : 'bg-gray-400'}`} />
                                             Offline
                                         </CardDescription>
                                     </div>

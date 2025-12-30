@@ -55,7 +55,7 @@ export function OnlineUsersList({ data }: OnlineUsersListProps) {
                 <Card>
                     <CardContent className="flex flex-col items-center justify-center p-12">
                         <UserIcon className="h-12 w-12 text-muted-foreground mb-4" />
-                        <p className="text-lg font-medium">No offline users</p>
+                        <p className="text-lg font-medium">No online users</p>
                         <p className="text-sm text-muted-foreground mt-1">All users are currently online</p>
                     </CardContent>
                 </Card>
@@ -75,8 +75,8 @@ export function OnlineUsersList({ data }: OnlineUsersListProps) {
                                             {user.firstName} {user.lastName}
                                         </CardTitle>
                                         <CardDescription className="flex items-center gap-1 mt-1">
-                                            <span className="inline-block w-2 h-2 rounded-full bg-muted-foreground" />
-                                            Offline
+                                            <span className={`inline-block w-2 h-2 rounded-full ${user.login === true ? 'bg-green-700' : 'bg-green-700'}`} />
+                                            Online
                                         </CardDescription>
                                     </div>
                                 </div>

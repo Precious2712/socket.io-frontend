@@ -31,6 +31,7 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
     const [text, setText] = useState('');
     const [onlineUsers, setOnlineUsers] = useState<string[]>([]);
     const bottomRef = useRef<HTMLDivElement | null>(null);
+    const messagesContainerRef = useRef<HTMLDivElement | null>(null);
 
     // Connect & register
     useEffect(() => {
@@ -128,8 +129,9 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
     const isOnline = onlineUsers.includes(selectedUser._id);
 
     return (
-        <div className="flex-1 flex flex-col bg-gray-400">
-            <header className="p-3 border-b flex justify-between items-center">
+        <div className="h-full flex flex-col bg-gray-400">
+            
+            <header className="shrink-0 p-3 border-b flex justify-between items-center">
                 <span className="font-semibold">
                     {selectedUser.lastName}
                 </span>
@@ -138,11 +140,14 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                 </span>
             </header>
 
-            <div className="flex-1 overflow-y-auto p-4 space-y-2">
+            <div 
+                ref={messagesContainerRef}
+                className="flex-1 overflow-y-auto p-4 space-y-2 no-scroll"
+            >
                 {messages.map(msg => (
                     <div
                         key={msg._id}
-                        className={` max-w-xs p-2 rounded ${msg.senderId === currentUser._id
+                        className={`max-w-xs p-2 rounded ${msg.senderId === currentUser._id
                                 ? 'ml-auto bg-gray-600 text-black'
                                 : 'bg-gray-200'
                             }`}
@@ -159,16 +164,18 @@ export function ChatWindow({ currentUser, selectedUser }: Props) {
                 <div ref={bottomRef} />
             </div>
 
-            <div className="p-3 border-t flex gap-2">
+            {/* Fixed input area */}
+            <div className="shrink-0 p-3 border-t flex gap-2">
                 <input
                     value={text}
                     onChange={e => setText(e.target.value)}
                     className="flex-1 border rounded px-3 py-2"
                     placeholder="Type a message..."
+                    onKeyDown={(e) => e.key === 'Enter' && sendMessage()}
                 />
                 <button
                     onClick={sendMessage}
-                    className="bg-green-800 text-white px-4 rounded cursor-pointer"
+                    className="bg-green-800 text-white px-4 rounded cursor-pointer hover:bg-green-900 transition"
                 >
                     Send
                 </button>
