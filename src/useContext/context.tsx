@@ -122,7 +122,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
     const sendFriendRequest = async (user: string) => {
         const isLoginUser = localStorage.getItem("user_id");
         if (!isLoginUser) {
-            alert("You need to be logged in to send requests.");
+            toast.error("You need to be logged in to send requests.");
             return;
         }
 
@@ -137,8 +137,10 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             setIsLoading(true);
 
             const res = await axios.post(`https://socket-backend-gp0t.onrender.com/sender/send`, payload);
-            console.log(res.data, "sender-request-view");
-
+            // console.log(res.data, "sender-request-view");
+            if (res.data) {
+                toast.success(res.data.message);
+            }
         } catch (err) {
             let msg = "A friend request already exists.";
             if (isAxiosError(err)) msg = err.response?.data?.message || msg;

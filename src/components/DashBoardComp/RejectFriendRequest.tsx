@@ -68,7 +68,7 @@ export function RejectFriendRequest({
                         <div className="flex flex-col xs:flex-row gap-2 sm:gap-3 w-full lg:w-auto lg:min-w-[200px]">
                             <motion.div whileHover={{ scale: 1.02 }} whileTap={{ scale: 0.98 }} className="w-full">
                                 <Button
-                                    className="h-9 sm:h-7 lg:h-8 text-sm sm:text-base font-semibold bg-red-700 hover:bg-red-400 transition-colors duration-200 shadow-md w-full"
+                                    className="cursor-pointer h-9 sm:h-7 lg:h-8 text-sm sm:text-base font-semibold bg-red-700 hover:bg-red-400 transition-colors duration-200 shadow-md w-full"
                                     onClick={() => handleReject(req._id)}
                                 >
                                     Decline

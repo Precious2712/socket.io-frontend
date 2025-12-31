@@ -128,7 +128,7 @@ export default function HomepageComp() {
                                                         </div>
 
                                                         <Button
-                                                            className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
+                                                            className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700 cursor-pointer"
                                                             onClick={() => sendFriendRequest(user._id)}
                                                         >
                                                             {/* {isLoading ? "Loading" : "Click"} */}
@@ -256,7 +256,7 @@ export default function HomepageComp() {
                                                     </div>
                                                 </div>
                                                 <Button
-                                                    className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700"
+                                                    className="bg-purple-600 text-white px-3 py-1 rounded-lg text-sm hover:bg-purple-700 cursor-pointer"
                                                     onClick={() => sendFriendRequest(user._id)}
                                                 >
                                                     Send
