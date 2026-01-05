@@ -47,7 +47,7 @@ export default function ChatPage() {
 
     return (
         <div className="h-screen flex overflow-hidden">
-            {/* Sidebar container - always takes full height */}
+            
             <div
                 className={`
                     h-screen w-full md:w-[320px]
@@ -62,7 +62,7 @@ export default function ChatPage() {
                 />
             </div>
 
-            {/* Chat window container */}
+            
             <div
                 className={`
                     h-screen flex-1

@@ -139,7 +139,7 @@ export const BoxItemsProvider = ({ children }: { children: ReactNode }) => {
             const res = await axios.post(`https://socket-backend-gp0t.onrender.com/sender/send`, payload);
             // console.log(res.data, "sender-request-view");
             if (res.data) {
-                toast.success(res.data.message);
+                toast.success('Friend request sent successfuly');
             }
         } catch (err) {
             let msg = "A friend request already exists.";
